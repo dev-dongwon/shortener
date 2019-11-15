@@ -11,7 +11,7 @@ const controller = {
       });
 
       return res.status(201).json({
-        url: `${hostUrl}/${insertedUrl.shortUrl}`,
+        url: `${hostUrl}/${urlObj.shortUrl}`
       });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
