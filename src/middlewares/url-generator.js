@@ -3,10 +3,10 @@ const shortId = require("shortid");
 const urlGenerator = (req, res, next) => {
   try {
     const urlCode = shortId.generate();
-    const originalUrl = req.query.url;
+    const originUrl = req.query.url;
 
     req.body = {
-      originalUrl,
+      originUrl,
       shortUrl: urlCode
     };
 
