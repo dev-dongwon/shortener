@@ -22,7 +22,7 @@ const runServer = async () => {
   const urlRouter = require("./routes/url");
 
   // routes
-  app.use("/register.json", urlRouter);
+  app.use("/", urlRouter);
 
   const server = app.listen(3000, () => {
     console.info("App listening on port 3000!");
