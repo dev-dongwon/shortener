@@ -24,7 +24,13 @@ class Url extends Model {
       {
         sequelize,
         tableName: "url",
-        paranoid: true
+        paranoid: true,
+        indexes: [
+          { fields: ["originUrl"] },
+          {
+            fields: ["shortUrl"],
+          }
+        ]
       }
     );
   }
