@@ -14,7 +14,7 @@ const urlDupleChecker = async (req, res, next) => {
     // 해당 url이 있으면 url 반환
     if (existUrl) {
       const shortUrl = existUrl.dataValues.shortUrl;
-      return res.status(201).json({
+      return res.status(200).json({
         url: `${hostUrl}/${shortUrl}`
       });
     }
