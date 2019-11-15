@@ -1,5 +1,6 @@
 const Url = require("../models/Url");
 const { hostUrl } = require("../config");
+const Logger = require("../mongoDB/models/Logger");
 
 const controller = {
   postUrl: async (req, res) => {
@@ -18,10 +19,22 @@ const controller = {
     }
   },
 
+  // mongoDB에 로그 기록 생성
+  registLog: async shortUrl => {
+    const log = new Logger({
+      shortUrl
+    });
+
+    await log.save();
+  },
+
   redirectUrl: async (req, res) => {
     const shortUrl = req.params.shortUrl;
 
     try {
+      // 로그 생성
+      await registLog(shortUrl);
+
       const existUrl = await Url.findOne({
         where: { shortUrl: shortUrl }
       });
@@ -34,6 +47,13 @@ const controller = {
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
+  },
+
+  getStats: async (req, res) => {
+    const shortUrl = req.params.shortUrl;
+    const result = await Logger.find();
+    console.log(result);
+    return res.json(result);
   }
 };
 
