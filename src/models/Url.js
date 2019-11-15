@@ -11,19 +11,19 @@ class Url extends Model {
           type: DataTypes.INTEGER
         },
         originUrl: {
-          type: DataTypes.TEXT,
+          type: DataTypes.STRING,
           allowNull: false,
           unique: true
         },
         shortUrl: {
-          type: DataTypes.TEXT,
+          type: DataTypes.STRING,
           allowNull: false,
           unique: true
         }
       },
       {
         sequelize,
-        tableName: "card",
+        tableName: "url",
         paranoid: true
       }
     );
