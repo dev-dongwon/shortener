@@ -18,6 +18,12 @@ const runServer = async () => {
   app.use(morgan("dev"));
   app.use(express.json());
 
+  // router
+  const urlRouter = require("./routes/url");
+
+  // routes
+  app.use("/register.json", urlRouter);
+
   const server = app.listen(3000, () => {
     console.info("App listening on port 3000!");
   });
