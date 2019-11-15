@@ -4,6 +4,7 @@ require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const sequelize = require("./models/index");
+const mongoConnector = require('./mongoDB/connect-mongo');
 
 const stopServer = async (server, sequelize) => {
   await server.close();
@@ -29,6 +30,7 @@ const runServer = async () => {
   });
 
   try {
+    mongoConnector();
     await sequelize.authenticate();
     await sequelize.sync({
       force: true
