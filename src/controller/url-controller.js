@@ -33,7 +33,7 @@ const controller = {
 
     try {
       // 로그 생성
-      await registLog(shortUrl);
+      controller.registLog(shortUrl);
 
       const existUrl = await Url.findOne({
         where: { shortUrl: shortUrl }
@@ -49,11 +49,29 @@ const controller = {
     }
   },
 
+
+  // 미완성입니다.
+  // aggregate 하여 시간 대별로 카운트를 세서 그룹화해 반환하려고 했습니다.
   getStats: async (req, res) => {
     const shortUrl = req.params.shortUrl;
-    const result = await Logger.find();
-    console.log(result);
-    return res.json(result);
+    try {
+      const Stats = await Logger.aggregate([
+        {
+          $match: {
+            shortUrl: { shortUrl }
+          }
+        },
+        {
+          $group: {
+            count: { $sum: 1 }
+          }
+        }
+      ]);
+      return res.stats(200).json({ Stats });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+    
   }
 };
 
