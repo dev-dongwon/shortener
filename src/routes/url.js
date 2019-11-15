@@ -4,6 +4,7 @@ const urlController = require('../controller/url-controller');
 const urlGenerator = require('../middlewares/url-generator');
 const urlDupleChecker = require('../middlewares/url-duple-checker');
 
-router.post('/', urlDupleChecker, urlGenerator, urlController.postUrl);
+router.post('/register.json', urlDupleChecker, urlGenerator, urlController.postUrl);
+router.get('/:shortUrl', urlController.redirectUrl)
 
 module.exports = router;
